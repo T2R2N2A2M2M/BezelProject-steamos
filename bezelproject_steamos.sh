@@ -102,6 +102,7 @@ function install_bezel_pack() {
     echo 'input_overlay_enable = "true"' >> "$file"
     echo 'input_overlay_hide_in_menu = "false"' >> "$file"
     echo 'input_overlay_opacity = "1.000000"' >> "$file"
+    echo 'input_overlay_auto_scale = "true"' >> "$file"
 
   done
 
@@ -123,11 +124,13 @@ function install_bezel_pack() {
 
   # Copy Overlays + Config
   echo "[INFO] Copying ${theme} overlays to ${OVERLAY_DIR}..."
+  # TODO: Remove stdbuf ????
   cp -r "/tmp/${theme}/retroarch/overlay/"* "${OVERLAY_DIR}/" 2>&1 |
     stdbuf -oL sed -E 's/\.\.+/---/g'
   echo "[INFO] Overlay copy complete."
 
   echo "[INFO] Copying ${theme} configs to ${RETROARCH_CONFIG_DIR}/config..."
+  # TODO: Remove stdbuf ????
   cp -r "/tmp/${theme}/retroarch/config/" "${RETROARCH_CONFIG_DIR}/" 2>&1 |
     stdbuf -oL sed -E 's/\.\.+/---/g'
   echo "[INFO] Config copy complete."
